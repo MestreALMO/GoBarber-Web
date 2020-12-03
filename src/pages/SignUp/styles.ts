@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
-import signInBackgroundImg from '../../assets/sign-in-background.png';
+import signUpBackgroundImg from '../../assets/sign-up-background.png';
 
 export const Container = styled.div`
   height: 100vh; /**exibir 100% do view por height(vh), forçar tudo a ser exibido na tela */
@@ -47,7 +47,7 @@ export const Content = styled.div`
 
   > a {
     /**Vai estilizar o "a" apenas dentro do "Content", deixando os "a" dentro dos outro níveis de estilização sem modificar */
-    color: #ff9000;
+    color: #f4ede8;
     display: block;
     margin-top: 24px;
     text-decoration: none; /**tirar sublinhado */
@@ -61,13 +61,13 @@ export const Content = styled.div`
     }
 
     &:hover {
-      color: ${shade(0.2, '#ff9000')};
+      color: ${shade(0.2, '#d4ede8')};
     }
   }
 `;
 
 export const Background = styled.div`
   flex: 1; /**ocupa todo o espaço, menos os 700px que definimos pro "Content" */
-  background: url(${signInBackgroundImg}) no-repeat center;
+  background: url(${signUpBackgroundImg}) no-repeat center;
   background-size: cover; /**Forçar a ocupar 100% do bg */
 `;
