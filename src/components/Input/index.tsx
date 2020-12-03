@@ -1,4 +1,11 @@
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
+import React, {
+  InputHTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  /** useCallback são funções dentro do componente que não precisam ser recriadas toda vez que aquele componente atualiza, elas são memorizadas, se precisar podemos manda-las recarregar */
+} from 'react';
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
 
@@ -10,10 +17,21 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
   const { fieldName, defaultValue, /* error, */ registerField } = useField(
     name,
   );
+
+  const handleInputBlur = useCallback(() => {
+    setIsFocused(false);
+
+    setIsFilled(!!inputRef.current?.value);
+    /** Se inputRef tiver valor setIsFilled receberá true, caso contrário receberá false */
+  }, []);
+  /** No Callback, se alguma da variáveis do segundo parâmetro se alterar é quando a função Callback será recarregada */
 
   useEffect(() => {
     registerField({
@@ -24,9 +42,15 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container>
+    <Container isFilled={isFilled} isFocused={isFocused}>
       {Icon && <Icon size={20} />}
-      <input defaultValue={defaultValue} ref={inputRef} {...rest} />
+      <input
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => handleInputBlur}
+        defaultValue={defaultValue}
+        ref={inputRef}
+        {...rest}
+      />
     </Container>
   );
 };

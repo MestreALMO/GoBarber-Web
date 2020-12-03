@@ -11,6 +11,7 @@ import { Container, Content, Background } from './styles';
 
 const SignUp: React.FC = () => {
   function handleSubmit(data: object): void {
+    // eslint-disable-next-line no-console
     console.log(data);
   }
 
