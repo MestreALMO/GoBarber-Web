@@ -25,6 +25,8 @@
         "prettier"
     ],
     "rules": {
+      "no-console": "off",
+      "no-unused-expressions": "off",
       "react-hooks/rules-of-hooks": "error",
       "no-use-before-define": "off",
       "react/jsx-props-no-spreading": "off",
