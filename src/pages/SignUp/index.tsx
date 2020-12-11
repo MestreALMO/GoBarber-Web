@@ -1,9 +1,7 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
-import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import getValidationErrors from '../../utils/getValidationErrors';
 
 import logoImg from '../../assets/logo.svg';
 
@@ -13,10 +11,6 @@ import Button from '../../components/Button';
 import { Container, Content, Background } from './styles';
 
 const SignUp: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
-
-  console.log(formRef);
-
   const handleSubmit = useCallback(async (data: object) => {
     try {
       const schema = Yup.object().shape({
@@ -32,11 +26,6 @@ const SignUp: React.FC = () => {
       });
     } catch (err) {
       console.log(err);
-      console.log({ ...err });
-
-      const errors = getValidationErrors(err);
-
-      formRef.current?.setErrors(errors);
     }
   }, []);
 
@@ -46,7 +35,7 @@ const SignUp: React.FC = () => {
       <Content>
         <img src={logoImg} alt="GoBarber" />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <h1>Sign-up</h1>
 
           <Input name="name" icon={FiUser} placeholder="name" />
