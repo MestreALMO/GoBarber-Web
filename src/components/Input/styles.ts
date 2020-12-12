@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 
+import Tooltip from '../Tooltip';
+
 interface ContainerProps {
   isFocused: boolean;
   isFilled: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -21,6 +24,12 @@ export const Container = styled.div<ContainerProps>`
   & + div {
     margin-top: 8px;
   }
+
+  ${props =>
+    props.isErrored &&
+    css`
+      border-color: #c53030;
+    `}
 
   ${props =>
     props.isFocused &&
@@ -49,5 +58,25 @@ export const Container = styled.div<ContainerProps>`
   svg {
     margin-right: 16px;
     /**margin dentro do icon, porque se não houver icon não tem porque a margin existir */
+  }
+`;
+
+export const Error = styled(Tooltip)`
+  height: 20px;
+  margin-left: 16px;
+  /**Para não deixar texto do input encontar no icon */
+
+  svg {
+    margin: 0;
+    /**Para tirar a "margin-right: 16px;" que colocamos anteriormente */
+  }
+
+  span {
+    background: #c53030;
+    color: #fff;
+
+    &::before {
+      border-color: #c53030 transparent;
+    }
   }
 `;
